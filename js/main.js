@@ -66,7 +66,6 @@ function statDisplayWeekly() {
     cover2.style.height = 160 - (data[data.length -5]) + 'px';
     cover1.style.height = 160 - (data[data.length -6]) + 'px';
     cover0.style.height = 160 - (data[data.length -7]) + 'px';
-    console.log(data[6]);
   },500);
 }
 
