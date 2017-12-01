@@ -1,3 +1,10 @@
+let data = [];
+if (localStorage.data) {
+   data = JSON.parse(localStorage.data);
+}else {
+   data = [];
+}
+
 let newDayBtn = document.getElementsByClassName('myBtn')[0],
   statBtn = document.getElementById('statBtn'),
   homeBtn = document.getElementById('homeBtn'),
@@ -9,7 +16,13 @@ let newDayBtn = document.getElementsByClassName('myBtn')[0],
   message = document.getElementById('message'),
   mainPage = document.querySelector('#mainPage'),
   statPage = document.querySelector('#statPage'),
-  cover = document.getElementsByClassName('cover')[6],
+  cover6 = document.getElementsByClassName('cover')[6],
+  cover5 = document.getElementsByClassName('cover')[5],
+  cover4 = document.getElementsByClassName('cover')[4],
+  cover3 = document.getElementsByClassName('cover')[3],
+  cover2 = document.getElementsByClassName('cover')[2],
+  cover1 = document.getElementsByClassName('cover')[1],
+  cover0 = document.getElementsByClassName('cover')[0],
   currentCigs,
   startTimeCig,
   totalCigs,
@@ -18,33 +31,48 @@ let newDayBtn = document.getElementsByClassName('myBtn')[0],
 
 setVars();
 
-newDayBtn.addEventListener('click', resetDay);
-statBtn.addEventListener('click', displayStat);
+newDayBtn.addEventListener('click', resetDay);            //*************************************************
+statBtn.addEventListener('click', displayStat);           //        EVENTS
 homeBtn.addEventListener('click', displayHome);
-circle.addEventListener('click', update);
+circle.addEventListener('click', update);                 //***********************************************
 
 //**** display Pages ***** //
 
 function displayStat() {
   mainPage.style.display = "none";
   statPage.style.display = "block";
+  statDisplayWeekly();
 };
 
 function displayHome() {
   mainPage.style.display = "block";
   statPage.style.display = "none";
 };
-//**** END display Pages ***** //
 
-
-function dailyStat() {
+function getDaylyNumbers() {
   let totalCigsDaily = localStorage.totalCigsDaily;
-  cover.style.height = 160 - (totalCigsDaily * 4) + 'px';
-  localStorage.totalCigsDaily = 0;
+  let broj = totalCigsDaily * 4;
+  data.push(broj);                                                      // function to get and save the info about how many cigs per day
+  localStorage.setItem('data',data);                                    // user had, so we can manipulate later.
+
 };
 
+function statDisplayWeekly() {
+  setTimeout(function functionName() {
+    cover6.style.height = 160 - (data[data.length -1]) + 'px';
+    cover5.style.height = 160 - (data[data.length -2]) + 'px';
+    cover4.style.height = 160 - (data[data.length -3]) + 'px';          //this function showes lines in graficon of how many cigs we had
+    cover3.style.height = 160 - (data[data.length -4]) + 'px';          //in last seven days
+    cover2.style.height = 160 - (data[data.length -5]) + 'px';
+    cover1.style.height = 160 - (data[data.length -6]) + 'px';
+    cover0.style.height = 160 - (data[data.length -7]) + 'px';
+  },500);
+}
 
-
+function saveData() {
+  localStorage.data = JSON.stringify(data);
+}
+//**** END display Pages ***** //
 
 
 
@@ -65,14 +93,15 @@ function update() {
   }
   saveVars();
   updateView();
-
 }
 
 function resetDay() {
   localStorage.totalCigsDaily = currentCigs;
-  dailyStat()
+  getDaylyNumbers();
   localStorage.currentCigs = 0;
-  setVars()
+  localStorage.totalCigsDaily = 0;
+  setVars();
+  saveData();
 };
 
 function updateView() {
@@ -87,6 +116,13 @@ function updateView() {
 };
 
 function setVars() {
+  cover6.style.height = 160  + 'px';
+  cover5.style.height = 160  + 'px';
+  cover4.style.height = 160  + 'px';
+  cover3.style.height = 160  + 'px';
+  cover2.style.height = 160  + 'px';
+  cover1.style.height = 160  + 'px';
+  cover0.style.height = 160  + 'px';
   (localStorage.currentCigs) ? currentCigs = localStorage.currentCigs: currentCigs = 0;
   (localStorage.totalCigs) ? totalCigs = localStorage.totalCigs: totalCigs = 0;
   if (localStorage.startTimeCig) {
@@ -116,7 +152,7 @@ function setStartDate() {
 };
 
 function currentTime() {
-  noSmokeTime();
+  noSmokeTime();                                                    //This function is to display time beatwin two cigs on the homePage
   loop = setInterval(function() {
     noSmokeTime();
   }, 1000)
@@ -135,9 +171,9 @@ function noSmokeTime() {
     let sec = counter % (min * 60);
     (min < 10) ? min0 = '0' + min: min0 = min;
     (sec < 10) ? sec0 = '0' + sec: sec0 = sec;
-    noSmoke = min0 + ' min : ' + sec0 + ' sec';
+    noSmoke = min0 + ' min : ' + sec0 + ' sec';                       
   } else if (counter >= 3600) {
-    let h = Math.floor(counter / 3600); // nije htelo sa let
+    let h = Math.floor(counter / 3600);
     min = Math.floor((counter % (h * 3600)) / 60);
     sec = counter % ((min * 60) + (h * 3600));
     (h < 10) ? h0 = '0' + h: h0 = h;
