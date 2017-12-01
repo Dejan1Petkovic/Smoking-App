@@ -66,6 +66,7 @@ function statDisplayWeekly() {
     cover2.style.height = 160 - (data[data.length -5]) + 'px';
     cover1.style.height = 160 - (data[data.length -6]) + 'px';
     cover0.style.height = 160 - (data[data.length -7]) + 'px';
+    console.log(data[6]);
   },500);
 }
 
@@ -102,6 +103,7 @@ function resetDay() {
   localStorage.totalCigsDaily = 0;
   setVars();
   saveData();
+  displayHome();
 };
 
 function updateView() {
@@ -171,7 +173,7 @@ function noSmokeTime() {
     let sec = counter % (min * 60);
     (min < 10) ? min0 = '0' + min: min0 = min;
     (sec < 10) ? sec0 = '0' + sec: sec0 = sec;
-    noSmoke = min0 + ' min : ' + sec0 + ' sec';                       
+    noSmoke = min0 + ' min : ' + sec0 + ' sec';
   } else if (counter >= 3600) {
     let h = Math.floor(counter / 3600);
     min = Math.floor((counter % (h * 3600)) / 60);
