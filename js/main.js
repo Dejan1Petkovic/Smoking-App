@@ -105,6 +105,7 @@ function update() {
   }
   saveVars();
   updateView();
+  playSound();
   fireEffect();
 }
 
@@ -199,7 +200,6 @@ function noSmokeTime() {
 };
 
 function fireEffect() {
-  playSound();
   circle.style.backgroundSize = "600px";
   setTimeout(function() {
     circle.style.backgroundSize = "1px";
