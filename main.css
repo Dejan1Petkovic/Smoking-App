@@ -45,7 +45,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 1px;
-  transition: all .5s ease;
+  transition: all 4s ease;
 
 }
 
@@ -84,7 +84,7 @@
 .cigPerDay {
   width: 25px;
   height: 160px;
-  background: linear-gradient(red, yellow, white);
+  background: linear-gradient(black, red, yellow);
 
 }
 

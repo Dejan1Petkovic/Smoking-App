@@ -16,6 +16,7 @@ let newDayBtn = document.getElementsByClassName('myBtn')[0],
   message = document.getElementById('message'),
   mainPage = document.querySelector('#mainPage'),
   statPage = document.querySelector('#statPage'),
+  logo = document.querySelector('#logo'),
   cover6 = document.getElementsByClassName('cover')[6],
   cover5 = document.getElementsByClassName('cover')[5],
   cover4 = document.getElementsByClassName('cover')[4],
@@ -35,6 +36,13 @@ newDayBtn.addEventListener('click', resetDay);            //********************
 statBtn.addEventListener('click', displayStat);           //        EVENTS
 homeBtn.addEventListener('click', displayHome);
 circle.addEventListener('click', update);                 //***********************************************
+logo.addEventListener('click', homePage);
+
+function homePage(e) {
+  e.preventDefault();
+  displayHome();
+}
+
 
 //**** display Pages ***** //
 
@@ -42,6 +50,7 @@ function displayStat() {
   mainPage.style.display = "none";
   statPage.style.display = "block";
   statDisplayWeekly();
+
 };
 
 function displayHome() {
@@ -66,6 +75,9 @@ function statDisplayWeekly() {
     cover2.style.height = 160 - (data[data.length -5]) + 'px';
     cover1.style.height = 160 - (data[data.length -6]) + 'px';
     cover0.style.height = 160 - (data[data.length -7]) + 'px';
+    console.log(cover6.style.height);
+    console.log(cover5.style.height);
+
   },500);
 }
 
@@ -93,7 +105,7 @@ function update() {
   }
   saveVars();
   updateView();
-   fireEffect();
+  fireEffect();
 }
 
 function resetDay() {
@@ -173,7 +185,7 @@ function noSmokeTime() {
     let sec = counter % (min * 60);
     (min < 10) ? min0 = '0' + min: min0 = min;
     (sec < 10) ? sec0 = '0' + sec: sec0 = sec;
-    noSmoke = min0 + ' min : ' + sec0 + ' sec';
+    noSmoke = min0 + ' m : ' + sec0 + ' s';
   } else if (counter >= 3600) {
     let h = Math.floor(counter / 3600);
     min = Math.floor((counter % (h * 3600)) / 60);
@@ -181,19 +193,27 @@ function noSmokeTime() {
     (h < 10) ? h0 = '0' + h: h0 = h;
     (min < 10) ? min0 = '0' + min: min0 = min;
     (sec < 10) ? sec0 = '0' + sec: sec0 = sec;
-    noSmoke = h0 + ' h : ' + min0 + ' min : ' + sec0 + ' sec';
+    noSmoke = h0 + ' h : ' + min0 + ' m : ' + sec0 + ' s';
   };
   lastTimeSpan.innerHTML = noSmoke;
 };
+
 function fireEffect() {
-  circle.style.backgroundSize = "500px";
+  circle.style.backgroundSize = "600px";
   setTimeout(function() {
     circle.style.backgroundSize = "1px";
-  }, 300)
+  }, 1700)
+  playSound();
+}
+
+function playSound() {
+  let smokeSound = document.createElement('audio');
+  smokeSound.setAttribute('src', "sound/lighting-cigarette-sound.wav");
+  smokeSound.play();
 }
 
 (function messageRnd() {
-  let quitSmokingMsg = ["Keep Calm and Quit Smoking!", "Don't smoke, or die!", "Quit smoking today,save your family!", "Is the value of your life this cheep!"];
+  let quitSmokingMsg = ["Keep Calm and Quit Smoking!", "Don't smoke, or die!", "Quit smoking today, save your family!", "Is the value of your life that cheep!"];
   let i = Math.floor(Math.random() * quitSmokingMsg.length);
   message.innerHTML = quitSmokingMsg[i];
 }());
