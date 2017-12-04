@@ -91,7 +91,6 @@ function saveData() {
 // *** Main Page functions *** //
 function update() {
   updateVars();
-   playSound();
 
   if (currentCigs >= 1) {
     startCig();
@@ -200,6 +199,7 @@ function noSmokeTime() {
 };
 
 function fireEffect() {
+  playSound();
   circle.style.backgroundSize = "600px";
   setTimeout(function() {
     circle.style.backgroundSize = "1px";
