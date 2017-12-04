@@ -91,6 +91,7 @@ function saveData() {
 // *** Main Page functions *** //
 function update() {
   updateVars();
+   playSound();
 
   if (currentCigs >= 1) {
     startCig();
@@ -203,7 +204,6 @@ function fireEffect() {
   setTimeout(function() {
     circle.style.backgroundSize = "1px";
   }, 1700)
-  playSound();
 }
 
 function playSound() {
