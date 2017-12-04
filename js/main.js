@@ -93,6 +93,7 @@ function update() {
   }
   saveVars();
   updateView();
+   fireEffect();
 }
 
 function resetDay() {
@@ -184,6 +185,12 @@ function noSmokeTime() {
   };
   lastTimeSpan.innerHTML = noSmoke;
 };
+function fireEffect() {
+  circle.style.backgroundSize = "500px";
+  setTimeout(function() {
+    circle.style.backgroundSize = "1px";
+  }, 300)
+}
 
 (function messageRnd() {
   let quitSmokingMsg = ["Keep Calm and Quit Smoking!", "Don't smoke, or die!", "Quit smoking today,save your family!", "Is the value of your life this cheep!"];
